@@ -1,0 +1,71 @@
+* 使用qemu搭建测试环境
+** 目标网络环境
+最理想的网络就是guests之间互通而且guests能上网也能连上host,但同lan中的其他host不能连上guests.
+host已经在一个lan中了,guests应该在另外一个网段的lan.
+guest的网卡ip如 192.168.1.2,192.168.1.3.  host也应该有一个网卡的ip为 192.168.1.1.
+guest的网卡都是虚拟网卡. guest要连上外网则需要
+
+** 搭建网络
+*** bridge
+
+* iptables
+** 官网
+*** https://www.netfilter.org/
+
+** 概念
+*** netfilter
+**** 定义
+software of packet filtering framework
+netfilter, ip_tables, connection tracking (ip_conntrack, nf_conntrack) and the NAT subsystem together build the major parts of the framework.
+
+**** 作用
+1. packet filtering
+2. network address [and port] translation (NAT)
+3. other packet mangling
+
+**** 原理
+在内核中
+注册callback到内核中，从而内核模块可以在网络栈注册callback，每个packet的处理都会经过filtering如果满足设定的规则就会执行callback，这个callback是用户定义的
+
+*** iptables与netfilter的关系
+iptables是netfilter在用户空间的工具
+
+*** iptables
+**** 定义
+iptables is the userspace command line program used to configure the Linux 2.4.x and later packet filtering ruleset.
+Since Network Address Translation is also configured from the packet filter ruleset, iptables is used for this
+iptables is a generic table structure for the definition of rulesets. Each rule within an IP table consists of a number of classifiers (iptables matches) and one connected action (iptables target).
+
+**** 作用
+1. build internet firewalls based on stateless and stateful packet filtering
+2. deploy highly available stateless and stateful firewall clusters
+3. use NAT and masquerading for sharing internet access if you don't have enough public IP addresses
+4. use NAT to implement transparent proxies
+5. do further packet manipulation (mangling) like altering the TOS/DSCP/ECN bits of the IP header
+
+**** stateless packet
+
+**** stateful packet
+
+*** nat
+** 用法
+iptables -t表示制定哪个table
+iptables -vL -t nat可以打印nat的详细情况
+
+* ip转发
+** 作用
+ipv4转发
+cat /proc/sys/net/ipv4/ip_forward
+什么是ipv4转发功能？
+* org
+** structure editing
+** sparse trees
+** plain lists
+** drawers
+** blocks
+** footnotes
+* nginx upload module
+
+* webdav
+** 定义
+Web Distributed Authoring and Versioning
